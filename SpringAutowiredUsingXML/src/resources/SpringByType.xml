@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	
+	<bean id="c" class="beans.Car" autowire="byType">
+				<!-- <property name="engine" ref="e"></property> -->
+	</bean>
+	<!-- In case if you are using autowire="byType" Then we no need use following code.
+		<property name="engine" ref="e"></property>
+	
+	but by using that approach program shows following Error
+	
+	UnsatisfiedDependencyException: Error creating bean with name 'c' defined in class path resource [resources/SpringByType.xml]: Unsatisfied
+	dependency expressed through bean property 'engine': There are 2 beans of type [beans.Engine] available for autowiring by type: [e, e2]. 
+	There should have been exactly 1 to be able to autowire property 'engine' of bean 'c'. Consider using autowiring by name instead.
+	
+	To solve this type problem we should configure autowire-condidate="false" inside bean which bean we don't want.
+	-->
+	<bean id="e" class="beans.Engine">
+				<property name="modelYear" value="2015"></property>
+	</bean>	
+	<!-- following bean not participating with autowiring bcz of autowire-candidate="false" -->	
+	<bean id="e2" class="beans.Engine"  autowire-candidate="false">
+				<property name="modelYear" value="2016"></property>
+	</bean>
+
+</beans>
